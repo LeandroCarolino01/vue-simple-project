@@ -2,7 +2,7 @@
   <div id="app">
     <h1>{{ title }}</h1>
     <Navbar />
-    <AllFriends :friends="friends" />
+    <AllFriends :friends="friends" @delete="deleteFriend"/>
     <OnlineFriends :friends="friends" />
   </div>
 </template>
@@ -24,11 +24,19 @@ export default {
       title: 'this is my app!',
        friends:[
              
-                 { name: 'Mario', online: true },
-                 { name: 'Luigi', online: true },
+                 { name: 'Mario', online: false },
+                 { name: 'Luigi', online: false },
                  { name: 'puck', online: true },
                  { name: 'glauber', online: true }
              ]
+    }
+  },
+  methods: {
+    deleteFriend(payload){
+      console.log(payload);
+      this.friends = this.friends.filter(friend => {
+        return friend.name !== payload.name
+      })
     }
   }
 }
